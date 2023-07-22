@@ -42,3 +42,37 @@ class Solution:
                 t -= 1
             p = p.next
         return head
+
+
+# One pass solution
+ # Create three dummy nodes to point to the beginning of 0, 1, and 2 lists
+    zeroD = Node(0)
+    oneD = Node(0)
+    twoD = Node(0)
+    
+    # Initialize current pointers for 0, 1, and 2 lists
+    zero = zeroD
+    one = oneD
+    two = twoD
+    
+    # Traverse the linked list
+    curr = head
+    while curr:
+        if curr.data == 0:
+            zero.next = curr
+            zero = zero.next
+        elif curr.data == 1:
+            one.next = curr
+            one = one.next
+        else:
+            two.next = curr
+            two = two.next
+        curr = curr.next
+    
+    # Connect 0's list to 1's list and 1's list to 2's list
+    zero.next = oneD.next if oneD.next else twoD.next
+    one.next = twoD.next
+    two.next = None
+    
+    # The new head of the list is zeroD.next as 0's are to be at the head
+    return zeroD.next
