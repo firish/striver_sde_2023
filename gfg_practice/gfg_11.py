@@ -30,3 +30,23 @@ class Solution:
             if curr:
                 curr = curr.next
         return head
+
+
+# Optimized, and easy-to-read solution
+class Solution:
+    #Function to remove duplicates from the unsorted linked list.
+    def removeDuplicates(self, head):
+        # code here
+        # return head after editing the list
+        if not head:
+            return None
+        seen_values = set()
+        node = head
+        seen_values.add(node.data)
+        while node.next:
+            if node.next.data in seen_values:
+                node.next = node.next.next
+            else:
+                seen_values.add(node.next.data)
+                node = node.next
+        return head
