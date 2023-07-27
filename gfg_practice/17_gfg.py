@@ -1,4 +1,4 @@
-Find link at: https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-bst/1
+# Find link at: https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-bst/1
 
 #Function to find the lowest common ancestor in a BST. 
 def LCA(root, n1, n2):
