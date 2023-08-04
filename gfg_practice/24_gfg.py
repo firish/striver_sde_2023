@@ -1,4 +1,4 @@
-# find Link at: https://practice.geeksforgeeks.org/problems/reverse-a-stack/
+# find Link at: https://practice.geeksforgeeks.org/problems/reverse-a-stack/1
 
 from typing import List
 
