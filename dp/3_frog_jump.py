@@ -31,3 +31,13 @@ def frogJump(n: int, heights: List[int]) -> int:
         return dp[curr]
     
     return jump(heights, n-1, dp)
+
+# Tabulation
+dp = [0]*(n)
+    for i in range(1, n):
+        one = dp[i-1] + abs(heights[i] - heights[i-1])
+        two = 10**10
+        if i > 1:
+            two = dp[i-2] + abs(heights[i] - heights[i-2])
+        dp[i] = min(one, two)
+    return dp[-1]
