@@ -1,6 +1,6 @@
 # generate valid paranthesis
 # works, but TLE
-
+# Link: https://leetcode.com/problems/generate-parentheses/
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
@@ -35,3 +35,31 @@ class Solution:
         res = []
         gen(arr, [], freq, n, res)
         return set(res)
+
+
+# Did not require the for loop pattern, simply use take not take with freq condition
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        
+        def gen(curr, open_count, close_count):
+            # if the current combination is valid, add to the result
+            if curr and len(curr) == 2 * n:
+                res.append(''.join(curr))
+                return
+            
+            # If we can add an opening parenthesis, do it
+            if open_count < n:
+                curr.append('(')
+                gen(curr, open_count + 1, close_count)
+                curr.pop()
+            
+            # If we can add a closing parenthesis, do it
+            if close_count < open_count:
+                curr.append(')')
+                gen(curr, open_count, close_count + 1)
+                curr.pop()
+        
+        res = []
+        curr = []
+        gen(curr, 0, 0)
+        return res
