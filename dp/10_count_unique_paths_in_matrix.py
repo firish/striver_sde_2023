@@ -30,3 +30,25 @@ class Solution:
         
         dp = [[-1 for _ in range(n)] for _ in range(m)]
         return travel(0, 0, m, n, dp)
+
+
+# Tabulating the solution
+
+# steps
+# get the base condition
+# a for loop for each state (1 for r, 1 for c)
+# this is bottom up, mostly copy recurrence relation, sometimes modify it (like this case)
+
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        for r in range(m):
+            for c in range(n):
+                # base case
+                if r == 0 and c == 0: dp[r][c] = 1
+                else:
+                    up = dp[r-1][c+0]
+                    left = dp[r+0][c-1]
+                    # tabulate
+                    dp[r][c] = up + left
+        return dp[m-1][n-1]
