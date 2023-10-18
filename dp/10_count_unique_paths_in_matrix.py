@@ -16,7 +16,7 @@ class Solution:
             if dp[r][c] != -1:
                 return dp[r][c]
             
-			right, down = 0, 0
+	    right, down = 0, 0
             # go right
             if is_valid(r+0, c+1, m, n):
                 right = travel(r+0, c+1, m, n, dp)
