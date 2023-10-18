@@ -31,3 +31,18 @@ class Solution:
         
         dp = [[10**12 for _ in range(n)] for _ in range(m)]
         return path_sum(m-1, n-1, m, n, dp)
+
+
+
+# tabulate
+m, n = len(grid), len(grid[0])
+dp = [[10**12 for _ in range(n)] for _ in range(m)]
+for r in range(m):
+    for c in range(n):
+        if r == 0 and c == 0:
+            dp[r][c] = grid[r][c]
+        else:
+            up = grid[r][c]+ dp[r-1][c+0]
+            left = grid[r][c]+ dp[r+0][c-1]
+            dp[r][c] = min(up, left)
+return dp[m-1][n-1]
