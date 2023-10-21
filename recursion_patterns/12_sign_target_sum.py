@@ -1,4 +1,5 @@
 # Link: https://leetcode.com/problems/target-sum/
+# rec pattern: 1
 
 # Solution (recursion)
 class Solution:
