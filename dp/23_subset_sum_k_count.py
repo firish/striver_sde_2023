@@ -30,4 +30,24 @@ def findWays(arr: List[int], k: int) -> int:
     return subset(len(nums)-1, k, dp) % (10**9 + 7)
 
 
+
 # tabulated
+def findWays(arr: List[int], k: int) -> int:
+    # Write your code here.
+
+    dp = [[0 for _ in range(k+1)] for _ in range(len(arr))]
+    # table setup
+    for ind in range(0, len(arr)):
+        dp[ind][0] = 1 # ways to make 0
+    # base case
+    if arr[0] <= k:
+        dp[0][arr[0]] = 1 
+        
+    for ind in range(1, len(arr)):
+        for curr in range(1, k+1):
+            take, skip = 0, 0
+            if curr >= arr[ind]:
+                take = dp[ind-1][curr-arr[ind]]
+            skip = dp[ind-1][curr]
+            dp[ind][curr] = (take + skip) % (10**9 + 7)
+    return dp[len(arr)-1][k] 
