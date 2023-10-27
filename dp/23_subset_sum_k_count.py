@@ -51,3 +51,31 @@ def findWays(arr: List[int], k: int) -> int:
             skip = dp[ind-1][curr]
             dp[ind][curr] = (take + skip) % (10**9 + 7)
     return dp[len(arr)-1][k] 
+
+
+# my first space-optimized dp (god level)!
+    def findWays(arr: List[int], k: int) -> int:
+    # Write your code here.
+
+    # space optimized
+    dp = [[0 for _ in range(k+1)]]
+    
+    # table setup
+    dp[0][0] = 1 # ways to make 0
+    # base case
+    if arr[0] <= k:
+        dp[0][arr[0]] = 1 
+        
+    for ind in range(1, len(arr)):
+        next_row = [0]*(k+1)
+        # if trying space optimization, make sure
+        # curr starts from 0 and not 1
+        # as 0th index is not taken care of like normal tabulation
+        for curr in range(0, k+1): 
+            take, skip = 0, 0
+            if curr >= arr[ind]:
+                take = dp[0][curr-arr[ind]]
+            skip = dp[0][curr]
+            next_row[curr] = (take + skip) % (10**9 + 7)
+        dp[0] = next_row
+    return dp[0][k] 
