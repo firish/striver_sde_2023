@@ -39,3 +39,43 @@ while t > 0:
     
     dp = [[-1 for _ in range(bag_wt+1)] for _ in range(n)]
     print(knapsack(n-1, 0, dp))
+
+
+
+# tabulation
+from os import *
+from sys import *
+from collections import *
+from math import *
+
+## Read input as specified in the question.
+## Print output as specified in the question.
+
+t = int(input())
+while t > 0:
+    t -= 1
+    n = int(input())
+    wts = list(map(int, input().split()))
+    vals = list(map(int, input().split()))
+    bag_wt = int(input())
+
+    if n == 1: 
+        if bag_wt >= wts[0]: print(vals[0])
+        else: print(0)
+        continue
+    
+    dp = [[0 for _ in range(bag_wt+1)] for _ in range(n)]
+    # base case
+    for wt in range(1, bag_wt+1):
+        if wts[0] <= wt:
+            dp[0][wt] = vals[0]
+
+    for ind in range(1, n):
+        for wt in range(1, bag_wt+1):
+            skip = dp[ind-1][wt]
+            take = -10**10
+            if wts[ind] <= wt:
+                take = vals[ind] + dp[ind-1][wt-wts[ind]]
+            dp[ind][wt] = max(skip, take)
+    print(dp[n-1][bag_wt])
+
