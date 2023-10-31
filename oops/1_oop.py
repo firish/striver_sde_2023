@@ -1,7 +1,52 @@
-import time
+# Type of language
+# Python is a dynamically-typed language.
+# This means you don't have to declare a variable's type explicitly when you create it; the interpreter determines the type on the fly based on the value you assign to the variable.
+# Determining variable types at runtime can introduce some overhead, potentially making dynamically-typed languages slower than statically-typed.
 
-# defining a class
+
+# Parameter passing style of language
+# Python has no pointers, and every variable is actually an object of a class
+# Therefore everything is passed by reference.
+# The assignments are also by reference (and not just value).
+# Ex: a = [1, 2, 3]; b = a; b.append(4); print(a)  # Output: [1, 2, 3, 4]
+
+
+# Basic memory management in python
+# Reference Counting: Python uses reference counting as its primary memory management mechanism. 
+# Reference Counting: Each object has a count of the number of references to it. When this count drops to zero, the memory for the object can be reclaimed.
+# Garbage Collection: In addition to reference counting, Python has a garbage collector to detect and clean up cycles of references
+# Garbage Collection: (e.g., two objects that reference each other) that wouldn't be reclaimed
+# Garbage Collection: gc library is used for garbage collection, with gc.collect() being the most important method.
+# ex: a = [1, 2, 3]; b = a; print(sys.getrefcount(a)); # This might return 3 (1 for 'a', 1 for 'b', and 1 for being an argument to getrefcount)
+
+
+# Shallow and Deep Copy in Python
+# Shallow and deep copy will be same for simple objects like numbers and lists but different for compound objects
+# Shallow: A shallow copy creates a new compound object, but it does not create copies of the objects that the compound object references. I
+# Shallow: Instead, the new compound object contains references to the same objects as the original.
+# Shallow: copy.copy() is used for creating a shallow copy
+# Deep: A deep copy creates a new compound object and then, recursively, inserts copies of the objects found in the original compound object. 
+# Deep: This means that the original and the copy are fully independent.
+# Deep: copy.deepcopy() is used for creating a deep copy
+
+
+# OOP
+# defining a Class
 class Hero:
+
+
+    # Static keyword in python
+    # A static method belongs to the class rather than the instance of the class. 
+    # It can't modify the class state or the instance state, as it doesn't take a self or cls parameter.
+    # Utility Functions in Classes: When you have a utility function that makes sense to include within a class but doesn't need to access or modify the class or instance-specific data.
+    # Performance: Since static methods don't have access to instance (or class) specific data, they can be slightly faster than instance or class methods in some scenarios.
+    # Clarity: When you see a static method, you know it doesn't alter the state of the instance or the class itself. This can make the code clearer.
+    # Subclassing: In some advanced use cases, you might want to ensure a method can't be overridden by subclasses. 
+    # Subclassing; Since static methods don't have access to cls or self, they can't be easily overridden to behave polymorphically.
+    static_hero_count = 0
+    @staticmethod
+    def get_hero_count():
+        return Hero.static_hero_count
 
 
     # Constructor - Advantages
@@ -13,16 +58,28 @@ class Hero:
     # Chaining and Delegation: This ensures that the initialization logic in the parent class is also executed, maintaining the integrity and behavior of the inheritance chain.
     # Pattern Implementation: Enforce design patterns like singleton factory, where only one instance of class can be created.
     def __init__(self, name=None, health=100, level=0, power=10, is_alive=True):
+        # self is analogous to 'this' keyword in languages like C++
+        # self allows to access the attributes/properties and methods of an instance of the class
         self.name = name
         self.health = health
         self.level = level
         self.power = power
         self.is_alive = is_alive
-        
         self._bonus = "no_bonus"
         self._magic = "no_magic"
         self.__weapon = "no_weapon"
+        Hero.static_hero_count += 1
     
+
+    # Destructor - Advantages
+    # The destructor method (__del__) is a special method of a class and gets invoked when an instance of the class is about to be destroyed.
+    # The destructor (__del__) is called when the reference count of the object drops to zero, meaning there are no references pointing to the object anymore. 
+    # This can happen when, a) program ends, 2) del keyword is used for the instance, 3) the garbage collector collects it
+    # Resource Release: Destructors can be useful for releasing external resources used by your object, like closing files, releasing network connections, or cleaning up temporary resources.
+    # Custom Cleanup Logic: If there's any custom cleanup logic associated with your object, you can place it in the destructor.
+    def __del__(self):
+        print(f"The character {self.name} has expired, RIP Hero.")
+
 
     # Access Modification
     # Python follows a principle called "we are all consenting adults here," 
@@ -97,7 +154,15 @@ class Hero:
         return self.__weapon
     
     
-    # Next, static and synamic allocation in the class. 
+    # Static and Dynamic allotment
+    # Variables are dynamically typed in python
+    # However, recent versions allows for settin expected types of input/output for function
+    # These are only for the developer. (dont affect compilation)
+    def greeting(self, greeting: str) -> str:
+        return self.name + greeting
+
+
+
 
 
 # driver code
@@ -108,7 +173,6 @@ h1.set_health(damage=30)
 h1.set_health(damage=150)
 h1.set_health(boost=80, flag=1)
 
-
 # Conventions of access Modification
 try:
     print(h1._bonus)
@@ -117,3 +181,5 @@ except Exception as err:
     print("Error accessing hero weapon: " + str(err))
 print(h1._Hero__weapon)
 
+h2 = Hero('Ned_Stark')
+print(Hero.static_hero_count)
