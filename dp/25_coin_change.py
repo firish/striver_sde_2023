@@ -58,3 +58,33 @@ class Solution:
         
         res = change(len(coins)-1, amount, dp)
         return int(res) if res != 10**12 else -1
+
+
+
+# Tabulating
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        # create dp array
+        # dp[ind][curr], here dp[3][7] has the minimum number of coins
+        # that are needed to form the number 7, using the first three coin denominations
+        dp = [[10**12 for _ in range(amount+1)] for _ in range(len(coins))]
+        
+        # base case
+        # for the first coin denomination, 
+        # store the number of coins of needed to form each target (number)
+        for curr in range(amount+1):
+            dp[0][curr] = 10**12 # cant form
+            if curr % coins[0] == 0:
+                dp[0][curr] = int(curr / coins[0]) # if you can form
+        
+        # tabulate
+        for ind in range(1, len(coins)):
+            for curr in range(1, amount+1):
+                same_coin = 10**12
+                if curr >= coins[ind]:
+                    same = 1 + dp[ind][curr-coins[ind]]
+                next_coin = 0 + dp[ind-1][curr]
+                dp[ind][curr] = min(same_coin, next_coin)
+        
+        # answer -> minimum coins required to make amount, using all available coin demoniations
+        return dp[len(coins)-1][amount]
