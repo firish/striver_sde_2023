@@ -26,3 +26,20 @@ class Solution:
         
         dp = [[-1 for _ in range(len(text2))] for _ in range(len(text1))]
         return lcs(len(text1)-1, len(text2)-1, dp)
+
+
+# tabulation
+# has the shifted-index trick
+dp = [[-1 for _ in range(len(text2)+1)] for _ in range(len(text1)+1)]
+        for ind2 in range(len(text2)+1):
+            dp[0][ind2] = 0
+        for ind1 in range(len(text1)+1):
+            dp[ind1][0] = 0
+        
+        for ind1 in range(1, len(text1)+1):
+            for ind2 in range(1, len(text2)+1):
+                if text1[ind1-1] == text2[ind2-1]:
+                    dp[ind1][ind2] = 1 + dp[ind1-1][ind2-1]
+                else:
+                    dp[ind1][ind2] = 0 + max(dp[ind1-1][ind2], dp[ind1][ind2-1])
+        return dp[len(text1)][len(text2)]
