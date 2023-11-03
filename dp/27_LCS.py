@@ -8,8 +8,6 @@ class Solution:
         def lcs(ind1, ind2, dp):
             if ind1 < 0 or ind2 < 0:
                 return 0
-            if ind1 == 0 and ind2 == 0:
-                return 1 if text1[ind1] == text2[ind2] else 0
             
             # memo
             if dp[ind1][ind2] != -1:
