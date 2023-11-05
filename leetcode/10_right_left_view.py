@@ -46,3 +46,12 @@ class Solution:
                     q.append(node.right)
         
         return res
+
+# OPTION 2 for left side view
+# instead of this,
+        if node.left: 
+            q.append(node.left)
+        if node.right: 
+            q.append(node.right)
+# do the reverse, right first and then left, 
+# and then add the last node itself.
