@@ -50,3 +50,10 @@ print(calls)
     
 # 170868600
 # [1542]
+
+# If you do a tabulation, bottom-up approach
+# 170868600
+# [711], space = O(4*118) + O(4*120)
+
+# If you do a space-optimized dp, it will reduce to
+# [711], space = O(120)
