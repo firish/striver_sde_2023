@@ -36,6 +36,19 @@
 # hence all the keys in the bin array need to be assigned to a new index based on the new hashing
 # So this is a very costly operation.
 
+# What happens when multiple keys 
+# key1 -> f1() -> f2 -> i
+# key2 -> f1() -> f2 -> i
+# key2 -> f1() -> f2 -> i
+# all map to the same index?
+# This is called a collision
+# If we do not handle collisions the data at that index will be overwritten
+# This makes the dictionary a lossy data structure
+# To avoid this, there are two classic methods employed,
+# 1) Chaining,
+# 2) Open-Indexing (used by modern languages like Python and Go)
+
+# 1) Chaining
 
 # Here is a basic dictionary class implementation in Python
 class Dict:
