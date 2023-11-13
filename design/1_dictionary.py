@@ -35,3 +35,79 @@
 # Note, when this happens, the hash function f2() changes
 # hence all the keys in the bin array need to be assigned to a new index based on the new hashing
 # So this is a very costly operation.
+
+
+# Here is a basic dictionary class implementation in Python
+class Dict:
+    def __init__(self, size=10):
+        self.size = size
+        self.count = 0
+        self.table = [[] for _ in range(self.size)]
+
+    def hash_function(self, key):
+        return hash(key) % self.size
+
+    def resize(self, new_size):
+        old_table = self.table
+        self.size = new_size
+        self.table = [[] for _ in range(self.size)]
+        self.count = 0
+
+        for bucket in old_table:
+            for key, value in bucket:
+                self.insert(key, value)
+
+    def check_load_factor_and_resize(self):
+        # Grow the table
+        if self.count > 0.67 * self.size:
+            self.resize(self.size * 2)
+        # Shrink the table
+        elif self.count < 0.125 * self.size and self.size > 10:
+            self.resize(self.size // 2)
+
+    def insert(self, key, value):
+        self.check_load_factor_and_resize()
+        index = self.hash_function(key)
+        bucket = self.table[index]
+
+        for i, kv in enumerate(bucket):
+            if kv[0] == key:
+                bucket[i] = (key, value)  # Update existing key
+                return
+        bucket.append((key, value))  # Insert new key
+        self.count += 1
+
+    def delete(self, key):
+        index = self.hash_function(key)
+        bucket = self.table[index]
+
+        for i, kv in enumerate(bucket):
+            if kv[0] == key:
+                del bucket[i]  # Delete the key-value pair
+                self.count -= 1
+                self.check_load_factor_and_resize()
+                return True
+        return False  # Return False if the key was not found
+
+    def get(self, key):
+        index = self.hash_function(key)
+        bucket = self.table[index]
+
+        for kv in bucket:
+            if kv[0] == key:
+                return kv[1]
+        raise KeyError(f"Key not found: {key}")
+
+    def __setitem__(self, key, value):
+        self.insert(key, value)
+
+    def __getitem__(self, key):
+        return self.get(key)
+
+    def __delitem__(self, key):
+        if not self.delete(key):
+            raise KeyError(f"Key not found: {key}")
+
+    def __repr__(self):
+        return '{' + ', '.join(f'{k}: {v}' for bucket in self.table for k, v in bucket) + '}'
+
