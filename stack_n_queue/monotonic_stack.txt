@@ -1,0 +1,35 @@
+# Monotonic Stack
+
+# to get$the next greater element
+# or the next smaller element
+# or the previous greater or previous smaller element
+# we use a monotonic stack 
+# Monotonic simply means the same fashion
+# so at any point in time, 
+# all elements in the stack are 
+# either increasing or decreasing (last to first, as LIFO)
+
+
+# for the next greater element, we use a MIS 
+# and go from right to left
+# This ensures that at any given time, the stack holds all elements greater than the current element, 
+# and the top of the stack is the immediate next greater element.
+
+
+# for the next smaller element, we use a MDS
+# and go from right to left
+# This ensures that the stack always holds elements that are smaller than the current element, 
+# and the top of the stack represents the immediate next smaller element.
+
+
+# Previous Greater or Smaller Elements
+# The strategy is similar but traverse the array from left to right. 
+# For previous greater elements, we use a MDS,
+# and for previous smaller elements, a MIS
+
+
+# Summary
+# For the next greater element: Use a Monotonically Increasing Stack (MIS) and traverse from right to left.
+# For the next smaller element: Use a Monotonically Decreasing Stack (MDS) and traverse from right to left.
+# For the previous greater element: Use a Monotonically Decreasing Stack (MDS) and traverse from left to right.
+# For the previous smaller element: Use a Monotonically Increasing Stack (MIS) and traverse from left to right.
