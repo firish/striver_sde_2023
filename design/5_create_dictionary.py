@@ -48,7 +48,71 @@
 # 1) Chaining,
 # 2) Open-Indexing (used by modern languages like Python and Go)
 
+
 # 1) Chaining
+# base idea: if multiple keys hash to the same value, store all of them
+# a typical data structure for this is a linked-list
+# every index can be a head, and when another key hashes to that index
+# we create another node and link it to the previously existing node for that index
+# this creates a kind of chain "chaining" (multiple keys chained to an index)
+# so chaining-based dict is nothing but an array where element is a linked-list
+
+# languages where we can dynamically change the size of data structures, e.g Python
+# can simplify this implementation using an array of arrays
+
+# one problem with this approach,
+# when collisions occur, we create a chain
+# adding nodes is O(1), but deleting and look-up require traversal and are O(k), 
+# where k is the number of collisions for that index
+# and if we use an array instead of linked list, then lookup and deletion both become O(k)
+
+# to make this more effective,
+# you can maintain a self-balancing binary tree
+# so dictionary becomes an array, where each index is the root of a self-balancing tree
+# this makes lookup O(log.k), 
+# however, this also makes the insertions and deletions O(log.k)
+# so there exists a trade-off. 
+
+
+
+# 2) Open Addressing, or Open Indexing
+# basic idea:  when we have a collision, try to find another empty index for this key
+# however, this new index can't be random, we have to find it "deterministically"
+# a method to do this is by using "probing"
+
+# to do this we use a probing function
+# the function should be deterministic and cover the entire range [0, M]
+# for every key we call the prob(key, 0), here 0, is the 0th attempt
+# if there is a collision and a value already exists at that index, we call prob(key, 1)
+# in the worst case, we have to make M calls
+# since func is deterministic in nature, for the same key "k1" the prob() will always generate the indexes to check in the same order
+
+# example
+# say prob(key1, 0) -> 5
+# prob(key2, 0) -> 5, so prob(key2, 1) -> 2
+# prob(key3, 0) -> 5, so prob(key3, 1) -> 2, prob(key3, 2) -> 3
+# insertions and lookups are in open addressing are regular
+# if you look up k2, prob(key2, 0) -> 5, you don't find key2 at 5
+# so you do prob(key2, 1) -> 2, and find k2
+# avg case, insertion and look-up both will be O(k),
+
+# All deletes in open addressing are soft deletes
+# if you do a regular (hard) delete, say key1
+# you will empty that index, so ind 5 will be empty
+# now if you try to get key2
+# prob(key2, 0) -> 5, but 5 is empty, so you would think that dict does not have k2
+# hence we need to diffrentiate between empty and deleted slot
+# hence we use soft delete, simplest way to do so is put -1 for delted index vals
+
+# advantage is that we don't use an auxilary storage like Linkedlist or balanced binary tree like chaining, saving space and complexity of operation
+# disadvantage is that max number of keys = M, while in chaining, you can have unlimited keys
+
+# The efficiency of the open addressing is dependent upon the probing function
+# there are three common types of probing functions
+
+# A) Linear Probing
+
+
 
 # Here is a basic dictionary class implementation in Python
 class Dict:

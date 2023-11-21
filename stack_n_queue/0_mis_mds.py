@@ -41,3 +41,45 @@ for i, num in enumerate(arr[::-1]):
     # at the end, always add current element to top of stack
     mds.append(num)
 print(next_smaller)
+
+
+# For the previous greater element: 
+# Use a Monotonically Increasing Stack (MIS) and 
+# traverse from left to right.
+n = len(arr)
+mis = []
+prev_greater = [-1]*n
+for i, num in enumerate(arr[::1]):
+    ind = i
+    # if stack has elements, pop until the top of stack has previous greater
+    while len(mis) > 0 and num > mis[-1]:
+        mis.pop()
+    
+    # after poping, if stack still has elements, next greater element exists
+    if len(mis) > 0:
+        prev_greater[ind] = mis[-1]
+    
+    # at the end, always add current element to top of stack
+    mis.append(num)
+print(prev_greater)
+
+
+# For the previous smaller element: 
+# Use a Monotonically Decreasing Stack (MDS) and 
+# traverse from left to right.
+n = len(arr)
+mds = []
+prev_smaller = [-1]*n
+for i, num in enumerate(arr[::1]):
+    ind = i
+    # if stack has elements, pop until the top of stack has prev smaller
+    while len(mds) > 0 and num < mds[-1]:
+        mds.pop()
+    
+    # after poping, if stack still has elements, next greater element exists
+    if len(mds) > 0:
+        prev_smaller[ind] = mds[-1]
+    
+    # at the end, always add current element to top of stack
+    mds.append(num)
+print(prev_smaller)
