@@ -1,5 +1,6 @@
 # link: https://leetcode.com/problems/word-ladder-ii/submissions/
 
+# DFS
 class Solution:
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
         
@@ -36,3 +37,44 @@ class Solution:
             if len(seq) == shortest[0]:
                 ans.append(seq)
         return ans
+
+
+# BFS
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+        n = len(beginWord)
+        wordList = set(wordList)
+        
+        q = deque()
+        q.append(([beginWord], 1)) # ([seq], transitions)
+        level = 1
+        seen_words = []
+        res = []
+        while len(q) > 0:
+            seq, curr_transition = q.popleft()
+            word = seq[-1]
+            if word == endWord:
+                res.append(seq)
+                continue
+            
+            # remove words from the previous level to avoid adding same words multiple times
+            # print(seq, level)
+            if len(seq) > level:
+                for w in seen_words:
+                    if w in wordList:
+                        wordList.remove(w)
+                seen_words = []
+            
+            # Try all characters of current word
+            for pos in range(len(word)):
+                # Try replacing the char with all 26 alphabets
+                for ind in range(0, 27, 1):
+                    alphabet = chr(ord('a') + ind)
+                    new_word = word[:pos] + alphabet + word[pos+1:]
+                    
+                    if new_word in wordList:
+                        level = curr_transition
+                        q.append((seq + [new_word], curr_transition+1))
+                        seen_words.append(new_word)
+        
+        return res
