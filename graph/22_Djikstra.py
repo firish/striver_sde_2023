@@ -1,7 +1,7 @@
 # Djikstras algo, yay! 
 # Remember, don't use a queue. For Djikstra's, always use a PQ. (min-heap) 
 
-# GFG Link:
+# GFG Link: https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=implementing-dijkstra-set-1-adjacency-matrix
 
 
 # My sol,
