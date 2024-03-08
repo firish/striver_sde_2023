@@ -52,3 +52,39 @@ class Solution:
                     res.append([r, c])
                 
         return res
+
+
+# BY GPT4
+# Optimized way
+# it is a very smart soln
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights:
+            return []
+
+        m, n = len(heights), len(heights[0])
+        pacific_reachable = set()
+        atlantic_reachable = set()
+
+        def dfs(r, c, reachable, prev_height):
+            if ((r, c) in reachable or r < 0 or c < 0 or r >= m or c >= n or heights[r][c] < prev_height):
+                return
+            reachable.add((r, c))
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                dfs(r + dr, c + dc, reachable, heights[r][c])
+
+        # Start from the Pacific Ocean (top and left edges)
+        for i in range(m):
+            dfs(i, 0, pacific_reachable, heights[i][0])
+        for j in range(n):
+            dfs(0, j, pacific_reachable, heights[0][j])
+
+        # Start from the Atlantic Ocean (bottom and right edges)
+        for i in range(m):
+            dfs(i, n - 1, atlantic_reachable, heights[i][n - 1])
+        for j in range(n):
+            dfs(m - 1, j, atlantic_reachable, heights[m - 1][j])
+
+        # Intersection of cells reachable from both oceans
+        return list(pacific_reachable & atlantic_reachable)
+
