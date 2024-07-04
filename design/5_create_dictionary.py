@@ -30,6 +30,7 @@
 # next we can do bin[12] and get 5 in O(1) look-up time. 
 
 
+####################################################### Dynamic Sizing #######################################################
 # But, what happens  when you have stored M keys, and need to store more keys? 
 # The hash table has a load_factor
 #  The load factor is the ratio of the number of items in the hash table to the total number of slots/buckets available. 
