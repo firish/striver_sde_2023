@@ -40,6 +40,8 @@
 # hence all the keys in the bin array need to be assigned to a new index based on the new hashing
 # So this is a very costly operation.
 
+
+################################################# Hashing Conflict #######################################################
 # What happens when multiple keys 
 # key1 -> f1() -> f2 -> i
 # key2 -> f1() -> f2 -> i
@@ -53,33 +55,33 @@
 # 2) Open-Indexing (used by modern languages like Python and Go)
 
 
-# 1) Chaining
+################################################# Conflicts: Chaining ###############################################
 # base idea: if multiple keys hash to the same value, store all of them
-# a typical data structure for this is a linked-list
+# a typical data structure for this is a linked-list.
 # every index can be a head, and when another key hashes to that index
 # we create another node and link it to the previously existing node for that index
 # this creates a kind of chain "chaining" (multiple keys chained to an index)
-# so chaining-based dict is nothing but an array where element is a linked-list
+# so chaining-based dict is nothing but an array where every element is a linked-list head node
 
-# languages where we can dynamically change the size of data structures, e.g Python
+# IMP NOTE:
+# languages where we can dynamically change the size of data structures, e.g Python, Java (Dynamic Vectors)
 # can simplify this implementation using an array of arrays
 
 # one problem with this approach,
 # when collisions occur, we create a chain
 # adding nodes is O(1), but deleting and look-up require traversal and are O(k), 
-# where k is the number of collisions for that index
-# and if we use an array instead of linked list, then lookup and deletion both become O(k)
+# where k is the number of collisions for that index (or, simply, the length of that chain)
+# and if we use an array instead of linked list, then insertion, lookup, and deletion, all become O(k)
 
 # to make this more effective,
-# you can maintain a self-balancing binary tree
+# you can maintain a "self-balancing binary tree"
 # so dictionary becomes an array, where each index is the root of a self-balancing tree
-# this makes lookup O(log.k), 
-# however, this also makes the insertions and deletions O(log.k)
-# so there exists a trade-off. 
+# this makes lookup and deletions O(log.k), 
+# however, this also makes the insertions O(log.k)
+# so there still exists a trade-off. 
 
 
-
-# 2) Open Addressing, or Open Indexing
+########################################## Conflicts: Open Addressing/Indexing ###############################################
 # basic idea:  when we have a collision, try to find another empty index for this key
 # however, this new index can't be random, we have to find it "deterministically"
 # a method to do this is by using "probing"
