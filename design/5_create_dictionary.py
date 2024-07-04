@@ -88,7 +88,7 @@
 
 # to do this we use a probing function
 # the function should be deterministic (this simply means that function gives the same output for the same input every time),
-# and cover the entire range [0, M].
+# Probing functions must also cover all potential slots to ensure completeness.
 # for every key we call the probing prob(key, 0), here 0, is the 0th attempt
 # if there is a collision and a value already exists at that index, we call prob(key, 1)
 # in the worst case, we have to make M calls
