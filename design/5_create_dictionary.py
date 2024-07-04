@@ -87,11 +87,12 @@
 # a method to do this is by using "probing"
 
 # to do this we use a probing function
-# the function should be deterministic and cover the entire range [0, M]
-# for every key we call the prob(key, 0), here 0, is the 0th attempt
+# the function should be deterministic (this simply means that function gives the same output for the same input every time),
+# and cover the entire range [0, M].
+# for every key we call the probing prob(key, 0), here 0, is the 0th attempt
 # if there is a collision and a value already exists at that index, we call prob(key, 1)
 # in the worst case, we have to make M calls
-# since func is deterministic in nature, for the same key "k1" the prob() will always generate the indexes to check in the same order
+# since func is deterministic in nature, for the same key "k1", and attempt i the prob() will always generate the indexes to check in the same order
 
 # example
 # say prob(key1, 0) -> 5
