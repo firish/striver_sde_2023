@@ -98,26 +98,35 @@
 # say prob(key1, 0) -> 5
 # prob(key2, 0) -> 5, so prob(key2, 1) -> 2
 # prob(key3, 0) -> 5, so prob(key3, 1) -> 2, prob(key3, 2) -> 3
-# insertions and lookups are in open addressing are regular
-# if you look up k2, prob(key2, 0) -> 5, you don't find key2 at 5
-# so you do prob(key2, 1) -> 2, and find k2
-# avg case, insertion and look-up both will be O(k),
+# insertions and lookups are in open addressing are simple,
+# if you look up k2, prob(key2, 0) -> 5, you may find key2 at 5, and that will be O(1),
+# also, it is possible that you don't find key2 at 5.
+# so you do prob(key2, 1) -> 2, and again, you may, or may not find k2.
+# avg case, insertion and look-up both will be O(k) (here, k is the average number of collisions by the probing function)
+# the selection of a good probing function is crucial for open addressing.
 
-# All deletes in open addressing are soft deletes
+# IMP
+# All deletes in open addressing are "soft deletes"
 # if you do a regular (hard) delete, say key1
 # you will empty that index, so ind 5 will be empty
 # now if you try to get key2
 # prob(key2, 0) -> 5, but 5 is empty, so you would think that dict does not have k2
-# hence we need to diffrentiate between empty and deleted slot
-# hence we use soft delete, simplest way to do so is put -1 for delted index vals
+# hence we need to differentiate between an empty index and a deleted index
+# hence we use a concept of soft delete.
+# the simplest way to do so is put -1 for deleted index values.
 
-# advantage is that we don't use an auxilary storage like Linkedlist or balanced binary tree like chaining, saving space and complexity of operation
+# advantage is that we don't use an auxiliary storage like Linkedlist or balanced binary tree like chaining, 
+# saving space and complexity of operations
 # disadvantage is that max number of keys = M, while in chaining, you can have unlimited keys
+# (disclaimer, you can technically still increase the size of the array, but that comes with its associated costs)
+# (which just like a cache, could involve recomputing the index of all keys, as the probing function changes to account for the new arr size)
 
-# The efficiency of the open addressing is dependent upon the probing function
-# there are three common types of probing functions
+# Again, the efficiency of the open addressing is dependent upon its underlying probing function
+# There are three common types of probing functions.
 
-# A) Linear Probing
+
+########################################## Probing: Linear Probing ###############################################
+
 
 
 
