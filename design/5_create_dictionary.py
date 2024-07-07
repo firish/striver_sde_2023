@@ -126,6 +126,34 @@
 
 
 ########################################## Probing: Linear Probing ###############################################
+# A general probing function is f(k, i) = j.     (k=key, i = attempt, j = index)
+# Linear probing function has the form, 
+# f(k, i) = (h(k) + i) % m                       (h = hashing function, m = no of slots in dic/arr)
+
+# Linear Probing is a technique where, 
+# If the array has 8 indexes (0, to 7) and a p(key=25, i=0) gives index j=3,
+# and the index is already occupied, p(key=25, i=1) will give index 4, and p(key=25, i=2) will give index 5
+# and the linear probing function will go from the index j to the last index m sequentially and try placing the element
+# if it can't, it warps to the start, goes from index 0 to index j-1 sequentially, and tries to place the element.
+
+# key insertion: If the calculated slot is occupied, move to the next slot sequentially until an empty slot is found.
+
+# key lookup: 
+# Calculate the initial slot using the hash function.
+# Check the slot for the key; if not found, continue checking subsequent slots until the key is found or an empty slot is encountered.
+# Stop if an empty slot is found, indicating the key is not in the table.
+
+# key deletion:
+# First look up the element.
+# Then perform a soft delete by marking the slot as "deleted" instead of empty.
+# This prevents premature termination of searches for keys that were hashed to nearby slots.
+
+
+
+
+
+
+
 
 
 
