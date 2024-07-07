@@ -55,7 +55,7 @@
 # 2) Open-Indexing (used by modern languages like Python and Go)
 
 
-################################################# Conflicts: Chaining ###############################################
+################################################# Conflicts: CHAINING  ###############################################
 # base idea: if multiple keys hash to the same value, store all of them
 # a typical data structure for this is a linked-list.
 # every index can be a head, and when another key hashes to that index
@@ -81,7 +81,7 @@
 # so there still exists a trade-off. 
 
 
-########################################## Conflicts: Open Addressing/Indexing ###############################################
+########################################## Conflicts: OPEN ADDRESSING ###############################################
 # basic idea:  when we have a collision, try to find another empty index for this key
 # however, this new index can't be random, we have to find it "deterministically"
 # a method to do this is by using "probing"
@@ -106,7 +106,7 @@
 # the selection of a good probing function is crucial for open addressing.
 
 # IMP
-# All deletes in open addressing are "soft deletes"
+# All deletes in open addressing are "SOFT DELETES"
 # if you do a regular (hard) delete, say key1
 # you will empty that index, so ind 5 will be empty
 # now if you try to get key2
@@ -125,7 +125,7 @@
 # There are three common types of probing functions.
 
 
-########################################## Probing: Linear Probing ###############################################
+########################################## Probing: LINEAR PROBING ###############################################
 # A general probing function is f(k, i) = j.     (k=key, i = attempt, j = index)
 # Linear probing function has the form, 
 # f(k, i) = (h(k) + i) % m                       (h = hashing function, m = no of slots in dic/arr)
@@ -143,14 +143,41 @@
 # Check the slot for the key; if not found, continue checking subsequent slots until the key is found or an empty slot is encountered.
 # Stop if an empty slot is found, indicating the key is not in the table.
 
+# worst case for insertion and lookup is O(m).
+
 # key deletion:
 # First look up the element.
 # Then perform a soft delete by marking the slot as "deleted" instead of empty.
 # This prevents premature termination of searches for keys that were hashed to nearby slots.
 
+# Biggest Advantages
+# While you may think that linear probing is super slow because it linearly traverses the arr.
+# This is not the case
 
+# This is because of something called "LOCALITY OF REFERENCE"
+# When you first look up an index, the CPU does a memory fetch to get that index from memory to CPU for processing
+# The OS works on a block level (1kb, 2kb, or 4kb blocks of data)
+# so that index and a lot of neighboring indexes are sent back to the CPU cache by the OS
+# Also, OS stores arrays with continuous memory allocation and not in a segmented manner.
+# So, when a collision occurs, and we need to do a lookup to the next index, it is very likely present in the CPU cache
+# and hence these linear lookups of the indexes are super fast.
+# There are also claims that the "Locality of Reference" makes Linear Probing average time complexity as O(1)
 
+# Problem of Linear Probing
+# As expected, a bad hash function that increases collisions will make linear probing inefficient
+# The problem will get worse if the arr size is large
 
+# Linear probing suffers from "CLUSTERED COLLISIONS"
+# if there are three keys, 
+# k1 hashing to index 2
+# k2 hashing to index 2
+# k3 hashing to index 3
+# so, k1 hashes to 2, k2 goes to 3, and now k3 which was supposed to go through 3, will go through 4
+# collisions can create clusters of filled slots, leading to long sequences of occupied slots.
+# This increases the number of probes required for both insertions and lookups eventually reducing the hash table to a linear lookup.
+
+# To minimize these problems, 
+# The most common hash function used with Linear Probing is "MURMUR HASH" (see hashing func doc for details)
 
 
 
