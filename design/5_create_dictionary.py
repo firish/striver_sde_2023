@@ -167,12 +167,12 @@
 # As expected, a bad hash function that increases collisions will make linear probing inefficient
 # The problem will get worse if the arr size is large
 
-# Linear probing suffers from "CLUSTERED COLLISIONS"
-# if there are three keys, 
+# Linear probing suffers from "CLUSTERED COLLISIONS" / "CASCADING COLLISIONS"
+# If there are three keys, 
 # k1 hashing to index 2
 # k2 hashing to index 2
 # k3 hashing to index 3
-# so, k1 hashes to 2, k2 goes to 3, and now k3 which was supposed to go through 3, will go through 4
+# So, k1 hashes to 2, k2 goes to 3, and now k3 which was supposed to go through 3, will go through 4
 # collisions can create clusters of filled slots, leading to long sequences of occupied slots.
 # This increases the number of probes required for both insertions and lookups eventually reducing the hash table to a linear lookup.
 
@@ -180,8 +180,19 @@
 # The most common hash function used with Linear Probing is "MURMUR HASH" (see hashing func doc for details)
 
 
+########################################## Probing: QUADRATIC PROBING ######################################
+# The quadratic probing function is given as, 
+# P(k, i) = (h(k) + (c1*i) + (c2 * i^2)) % m                           Where, c1 and c2 are constants and c2 can not be 0
+# This way, instead of going linearly, we take quadratic leaps
+# A big advantage is that we get the ability to minimize the effect of cascading/clustered collisions
+# It still gets some benefits of locality of reference, but not as great as linear probing
+# This is because the function grows quadratically so that some collisions will be in the cache but for large collisions,
+# On the same index, the subsequent calls MAY go out of the CPU cache.
 
+# NOTE: c1 = 1 and c2 = 3 are the most popular choices for quadratic probing constants.
 
+########################################## DOUBLE HASHING TECHNIQUE ######################################
+# 
 
 
 
