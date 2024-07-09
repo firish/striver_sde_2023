@@ -191,8 +191,20 @@
 
 # NOTE: c1 = 1 and c2 = 3 are the most popular choices for quadratic probing constants.
 
-########################################## DOUBLE HASHING TECHNIQUE ######################################
-# 
+########################################## CONFLICTS: DOUBLE HASHING TECHNIQUE ######################################
+# Double hashing uses the same base concept as open addressing.
+# The first hash function gives the base index, and on a collision, the second hash function provides the offset
+# p(k, i) = (h1(k) + i*h2(k)) % m                                   Where h1 and h2 are hash functions
+# The core idea is that using a second hash function completely randomizes the offset
+# and hence, in principle, is more uniform and more immune to clustered/cascading collisions
+# Also, if true uniformity is achieved, then number of collisions also reduces, increasing performance. 
+
+# Considerations for the second hash function
+# 1. It should never return 0
+# 2. It should cycle through the entire arr index range (order is irrelevant)
+# 3. It should be fast to compute (~ to a random number generator, to ensure uniformity)
+
+
 
 
 
