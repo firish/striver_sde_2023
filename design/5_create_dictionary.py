@@ -205,6 +205,54 @@
 # 3. It should be fast to compute (~ to a random number generator, to ensure uniformity)
 
 
+########################################## MEASURING HASH TABLE PERFORMANCE ######################################
+# An important metric of every hash table is the "LOAD FACTOR"
+# Load Factor (alpha) = n/m, where n is the no of elements in the table, and m is the total available slots
+
+## Time to resolve conflict
+# In chaining, 
+# alpha = the average number of elements per linked list
+# time to resolve conflict = O(alpha + 1)  (alpha for traversing the linked list and 1 for adding the node) 
+
+# In open addressing,
+# With linear/quad probing and double hashing, the calculation of an exact time complexity is not practical
+# However, researchers approximate that as number of elements in the arr/table increases, the number of probes
+# (and subsequently) time to resolve conflict increases in an "exponential" manner
+# Also, linear probing has the worst performance and double hashing has a relatively better performance 
+# worst case would be O(m), assuming no infinite loops
+
+## Cost of probing
+# In chaining,
+# cost of probing is high
+# We use an arr of linked list heads, so we have to traverse the nodes of the linked list to find the key (linear traversal)
+# Plus, it is not CPU cache friendly, as linked lists and trees are typically stored in a fragmented manner
+# so we don't get any "locality of reference" benefits
+
+# In open addressing
+# Linear and quadratic hashing benefit from "locality of reference"
+# For double hashing the cost is again high,
+# as little to no "locality of reference" benefit plus CPU intensive as two hash functions need to be computed per key per attempt
+
+########################################## BENCHMARKING HASH TABLE PERFORMANCE ######################################
+# hence, there is no one good hash table strategy
+# We have to choose the right strategy based on our use case
+# The easiest way to do this is to use all the strategies for our case, compare the results, and choose the best one
+
+# A standard benchmark test is,
+# "LOOKUP TIME AS A FUNCTION OF INCREASING LOAD"
+
+# 1. Create a hash table of size 1024
+# 2. Insert n elements varying from 32 to 900
+# 3. Lookup 1000 keys (keep a high miss ratio)
+
+# General heuristics state that,
+# 1. Performance for open addressing degrades quickly as alpha nears 1 (arr is getting full)
+# 2. Chained approach degrades more gracefully (slow degradation in performance)
+# 3. In open addressing, Linear Probing would almost always be slower than double-hashing
+# 4. In open addressing, Probes will be shorter in double hashing
+# 5. We can not generalize chained > open addressing as chained is not caching-friendly 
+# 6. Cache friendliness becomes important when the arr/table size grows huge
+
 
 
 
