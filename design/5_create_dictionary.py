@@ -254,9 +254,20 @@
 # 6. Cache friendliness becomes important when the arr/table size grows huge
 
 
+########################################## OPTIMIZING CHAINING?  ######################################
+# A major drawback of chained hashing is that we can not leverage the CPU cache with it
+# We change chaining to be,
+# An array, where every node is the head of a linked list,
+# and every subsequent node in each linked list is an arr of fixed size (say 16 elements)
+# This allows us to leverage the CPU cache while traversing linked lists
+
+# NOTE: Even with this optimization,
+# Chaining will be generally better for smaller arr sizes, and open addressing for larger arr sizes
+# But this optimization helps to bridge the gap
 
 
-# Here is a basic dictionary class implementation in Python
+
+##################################### (CAN IGNORE) MY IMPLEMENTATION #################################
 class Dict:
     def __init__(self, size=10):
         self.size = size
