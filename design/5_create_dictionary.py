@@ -266,6 +266,41 @@
 # But this optimization helps to bridge the gap
 
 
+########################################## HASH TABLE RESIZING  ######################################
+# It is known that the performance of the hash table decreases as the table load factor increases
+# So, we need to resize after a certain threshold
+# However, resizing is very expensive, as we have to move a lot of keys to different indexes (as hash/prob functions will change to reflect the new size)
+# A common threshold is, alpha = 0.5
+# A common size increase strategy is to double the size of the current table/arr
+
+# Q: Why do we always/mostly double the size?
+# A: If we just increased the size of arr by 1 each time a key is added, 
+# for creating a new array, copying the elements, and adding the element, 
+# the time complexity for n operations will be O(n2) 
+
+# Now, assume every time the arr is filled, we double the arr
+# The time complexity for n operations will be O(n)
+
+# INTERESTING!
+# Q: Why is hash table size always a power of 2?
+# A: Hash functions use the mod operation to bind the output to the size of the arr/table
+# but for the CPU, a mod operation is expensive, as it needs to perform a long division to calculate the mod function
+# To do better we exploit a formula of bitwise operations
+# IMPORTANT: [number % m] = [number AND m-1] ..... WHERE m is a power of 2
+# The bitwise AND is faster than mod and that's how we can speed up the hashing significantly by making sure hash table size m is a power of 2
+
+# To keep exploiting this optimization
+# hash table size is a power of 2, and when it needs to be increased, it is DOUBLED
+
+# Q: When do we SHRINK the hash table/arr?
+# A: by simple reverse engineering, if we follow the above good practice,
+# if hash table size is n, it would have at max n/2 elements (load factor is 0.5)
+# if we shrink it and reduce it by a factor of 2, it would have n/2 slots
+# and hence should have at max n/4 elements
+# but if we resize at n/4 - 1 elements, just 1 insertion will cause a resize again, and that will be poor design,
+# so we go one more step back and reduce by a factor of 2 to n/8 elements
+# hence the most common shrink condition is, alpha < 12.5% 
+
 
 ##################################### (CAN IGNORE) MY IMPLEMENTATION #################################
 class Dict:
