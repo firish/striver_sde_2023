@@ -25,4 +25,31 @@ class Solution:
         else:
             return sym(root.left, root.right)
         
+
+# Same code, written at a different time
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         
+        def check(left, right):
+            if not left or not right:
+                return left == right
+            
+            if left.val != right.val:
+                return False
+            left_right = check(left.left, right.right)
+            if not left_right:
+                return False
+            right_left = check(left.right, right.left)
+            if not right_left:
+                return False
+            
+            return True
+        
+        return check(root, root)
