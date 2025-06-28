@@ -28,24 +28,17 @@ step 1,
 
 
 step 2, 
-`b = a ^ b`; 
-
-but here, `a = a ^ b`
-
-`b = a ^ b ^ b`
-
-But `b ^ b` is 0
-
-so, `b = a` (one number swapped)
+- `b = a ^ b`; 
+- but here, `a = a ^ b`, so, `b = a ^ b ^ b`
+- but `b ^ b` is 0
+- so, `b = a` (one number swapped)
 
 step 3,
-`a = a ^ b`
-Here, `a` is still `a ^ b`
-Here, `b` is now `a` (step 2)
-so, the eq becomes,
-`a = a ^ b ^ a`
-Now, `a ^ a = 0`
-Hence, 
-`a = b` (both numbers swapped)
+- `a = a ^ b`
+- here, `a` is still `a ^ b`
+- here, `b` is now `a` (step 2)
+- so, the eq becomes: `a = a ^ b ^ a`
+- now, `a ^ a = 0`
+- hence, `a = b` (both numbers swapped)
 
 The benefit is no extra money is spent to swap numbers this way.
