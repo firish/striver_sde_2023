@@ -28,10 +28,14 @@ step 1,
 
 
 step 2, 
-`b = a ^ b`
-but here, `a = a ^ b`, so,
+`b = a ^ b`; 
+
+but here, `a = a ^ b`
+
 `b = a ^ b ^ b`
+
 But `b ^ b` is 0
+
 so, `b = a` (one number swapped)
 
 step 3,
