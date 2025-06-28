@@ -16,29 +16,32 @@ b = a ^ b
 a = a ^ b
 ~~~
 
-Why does this work?
+### Why it works  
+XOR (`^`) has two algebraic properties that make the trick possible:  
+
+1. **Self-canceling** – `x ^ x = 0`  
+2. **Identity element** – `x ^ 0 = x`  
+
 
 step 1, 
-a = a ^ b
+`a = a ^ b`
 
 
 step 2, 
-```math
-b = a ^ b
-but here, a = a ^ b, so,
-b = a ^ b ^ b
-But b ^ b is 0
-so, b = a (one number swapped)
-```
+`b = a ^ b`
+but here, `a = a ^ b`, so,
+`b = a ^ b ^ b`
+But `b ^ b` is 0
+so, `b = a` (one number swapped)
 
 step 3,
-a = a ^ b
-Here, a is still a ^ b
-Here, b is now a (step 2)
+`a = a ^ b`
+Here, `a` is still `a ^ b`
+Here, `b` is now `a` (step 2)
 so, the eq becomes,
-a = a ^ b ^ a
-Now, a ^ a = 0
+`a = a ^ b ^ a`
+Now, `a ^ a = 0`
 Hence, 
-a = b (both numbers swapped)
+`a = b` (both numbers swapped)
 
 The benefit is no extra money is spent to swap numbers this way.
