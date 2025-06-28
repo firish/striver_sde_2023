@@ -9,19 +9,18 @@ b = temp
 a, b = b, a
 ```
 
-```python
-# bit manipulation
+~~~python
+# XOR swap: exchanges the values of a and b in-place
 a = a ^ b
 b = a ^ b
 a = a ^ b
-```
+~~~
 
 Why does this work?
 
 step 1, 
-```math
 a = a ^ b
-```
+
 
 step 2, 
 ```math
