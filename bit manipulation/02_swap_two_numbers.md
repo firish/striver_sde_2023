@@ -19,14 +19,18 @@ a = a ^ b
 Why does this work?
 
 step 1, 
+```math
 a = a ^ b
+```
 
 step 2, 
+```math
 b = a ^ b
 but here, a = a ^ b, so,
 b = a ^ b ^ b
 But b ^ b is 0
 so, b = a (one number swapped)
+```
 
 step 3,
 a = a ^ b
