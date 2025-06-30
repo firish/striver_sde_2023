@@ -57,3 +57,14 @@ def _clear_msb(x):
     k = x.bit_length() - 1
     return x and (not (1 << k))
 ```
+
+Some ways to do this if the interview doesnt want x.bit_length()
+
+You can get the same result using: 
+```python
+idx = 0
+while x != 0:
+    x >>= 1
+    idx += 1
+return idx
+```
