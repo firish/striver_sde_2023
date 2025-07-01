@@ -1,6 +1,13 @@
 ## Check whether a number is a **power of 2**
 
-A power-of-two has exactly **one** set bit (e.g. `1 = 0000 0001`, `2 = 0000 0010`, `4 = 0000 0100`).
+A power-of-two has exactly **one** set bit
+```text
+1 = 0000 0001
+2 = 0000 0010
+4 = 0000 0100
+```
+
+Note: **Hence, if you clear the LSB, the result for a perfect square will always be 0.**
 
 ### 1. Bit-trick one-liner `O(1)` time
 ```python
