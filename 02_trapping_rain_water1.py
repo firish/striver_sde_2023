@@ -41,3 +41,27 @@ class Solution:
             max_height = min(left_max[i], right_max[i])
             rain_water += max(0, max_height - height[i])
         return rain_water
+
+
+# 2-Pointer, single pass optimization
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        # edge case
+        if not height:
+            return 0
+
+        left, right = 1, len(height)-2
+        left_max = height[0]
+        right_max = height[-1]
+        rain_water = 0
+        while left <= right:
+            max_height = min(left_max, right_max)
+            if left_max <= right_max:
+                rain_water += max(0, max_height - height[left])
+                left_max = max(left_max, height[left])
+                left += 1
+            else:
+                rain_water += max(0, max_height - height[right])
+                right_max = max(right_max, height[right])
+                right -= 1
+        return rain_water
